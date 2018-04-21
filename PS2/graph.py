@@ -55,16 +55,20 @@ class Edge(object):
 
 class WeightedEdge(Edge):
     def __init__(self, src, dest, total_distance, outdoor_distance):
-        pass  # TODO
+        self.src =src
+        self.dest = dest
+        self.total_distance = total_distance
+        self.outdoor_distance = outdoor_distance
+        
 
     def get_total_distance(self):
-        pass  # TODO
+        return self.total_distance
 
     def get_outdoor_distance(self):
-        pass  # TODO
+        return self.outdoor_distance
 
     def __str__(self):
-        pass  # TODO
+        return '{}->{} ({}, {})'.format(self.src,self.dest,self.total_distance,self.outdoor_distance)
 
 
 class Digraph(object):
@@ -76,7 +80,9 @@ class Digraph(object):
     def __str__(self):
         edge_strs = []
         for edges in self.edges.values():
+#            print(edges)
             for edge in edges:
+#                print(edge)
                 edge_strs.append(str(edge))
         edge_strs = sorted(edge_strs)  # sort alphabetically
         return '\n'.join(edge_strs)  # concat edge_strs with "\n"s between them
@@ -90,13 +96,26 @@ class Digraph(object):
     def add_node(self, node):
         """Adds a Node object to the Digraph. Raises a ValueError if it is
         already in the graph."""
-        pass  # TODO
-
+        if node in self.nodes:
+            raise ValueError("node already in the graph")
+        else:
+            self.nodes.add(node)
+            self.edges[node]=[]
+        
     def add_edge(self, edge):
         """Adds an Edge or WeightedEdge instance to the Digraph. Raises a
         ValueError if either of the nodes associated with the edge is not
         in the  graph."""
-        pass  # TODO
+        
+        if not(self.has_node(edge.get_destination()) and self.has_node(edge.get_source())):
+            raise ValueError("the edge is not in the graph")
+        else:
+#            self.edges[edge.src,edge.dest,edge.get_total_distance,edge.get_outdoor_distance]=[edge]
+            self.edges[edge.src].append(edge)
+            
+#            self.edges[edge.src] = [edge]
+#            self.edges[edge.dest] =[edge]
+#            self.edges[edge.src] = self.get_edges_for_node(edge.dest)
 
 
 # ================================================================
