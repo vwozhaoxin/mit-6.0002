@@ -183,9 +183,12 @@ class ps4_calc(unittest.TestCase):
 		ci_95 = 6.6539041171330382
 		calc_avg, calc_ci_95 = ps4.calc_95_ci(population, 299)
 		print(calc_ci_95)
+      
 		self.assertTrue(ci_95 - 0.1 < calc_ci_95 < ci_95 + 0.1, "Got incorrect population 95% CI {} instead of {}.".format(calc_ci_95, ci_95))
 
 if __name__ == "__main__":
 	suite = unittest.TestSuite()
 	suite.addTest(unittest.makeSuite(ps4_calc))
 	unittest.TextTestRunner(verbosity=3).run(suite)
+a,b=ps4.calc_95_ci(population,299)
+print(a+b,a-b)
