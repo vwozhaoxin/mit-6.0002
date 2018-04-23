@@ -14,19 +14,19 @@ def test_robot_movement(robot_type, room_type):
     room = room_type(5, 5, 4)
     if is_furnished:
         room.add_furniture_to_room()
-    robots = [robot_type(room, 1, 1)]
+    robots = [robot_type(room, 1, 1)]*3
     coverage = 0
     time_steps = 0
     min_coverage = 1.0
     if is_furnished:
         anim = ps3_visualize.RobotVisualization(1, 5, 5, room.furniture_tiles) 
     else:
-        anim = ps3_visualize.RobotVisualization(1, 5, 5, [])  
+        anim = ps3_visualize.RobotVisualization(1, 5, 5, [],0.01)  
     while coverage < min_coverage:
         time_steps += 1 
         for robot in robots:
             robot.update_position_and_clean()
             anim.update(room, robots)
             coverage = float(room.get_num_cleaned_tiles())/room.get_num_tiles()
-            print(coverage)
+#            print(coverage)
     anim.done()
